@@ -4,7 +4,7 @@
     const workout =  document.querySelector(".workouts");
 
     const addPlayer = () => {
-        const name = 'Mike'; // comes from input body / form
+        const name = "Jason"; // comes from input body / form
         const levels = 30; // comes from model
 
         addWorkouts({ name, levels})
