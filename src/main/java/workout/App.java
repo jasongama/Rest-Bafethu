@@ -40,11 +40,12 @@ public class App {
                 return workoutService.findWorkout();
             });
 
+
             return workouts;
         }, gson::toJson);
+
+
     }
-
-
 
     static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
