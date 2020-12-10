@@ -15,7 +15,7 @@ public class App {
         Jdbi jdbi = Jdbi.create("jdbc:postgresql://localhost:5432/workout?user=codex&password=codex123").installPlugin(new SqlObjectPlugin());
         port(getHerokuAssignedPort());
 //        getHerokuAssignedPort();
-        Gson gson = new Gson();
+         Gson gson = new Gson();
         staticFiles.location("/public");
 
         get("/api/workouts", (request, response) -> {
