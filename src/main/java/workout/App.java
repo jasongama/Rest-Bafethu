@@ -13,7 +13,7 @@ public class App {
 
     public static void main(String[] args) {
         Jdbi jdbi = Jdbi.create("jdbc:postgresql://localhost:5432/workout?user=justin&password=justin123").installPlugin(new SqlObjectPlugin());
-        getHerokuAssignedPort();
+        port( getHerokuAssignedPort());
         Gson gson = new Gson();
         staticFiles.location("/public");
 
