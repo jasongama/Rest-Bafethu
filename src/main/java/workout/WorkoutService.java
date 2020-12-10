@@ -13,5 +13,11 @@ public interface WorkoutService {
 
     @SqlUpdate("insert into users(name, levels) values(?,?)")
     void addWorkout(String name, int level);
+    @SqlQuery("select * from users where id = ?")
+    @RegisterBeanMapper(Workout.class)
+    Workout getBarById(int id);
+    @SqlUpdate("delete from users where id = ?")
+    void deleteWorkout(int id);
+
 
 }
