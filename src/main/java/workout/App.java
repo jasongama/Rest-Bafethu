@@ -21,6 +21,7 @@ public class App {
 
         staticFiles.location("/public");
 
+        
         get("/api/workouts", (request, response) -> {
             List<Workout> workouts = jdbi.withHandle(handle -> {
                 WorkoutService workoutService = handle.attach(WorkoutService.class);
