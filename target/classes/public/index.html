@@ -1,103 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-     <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+          integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script language="text/x-template" class="listWorkoutTemplate">
+        {{#each workouts}}
+            <li>#{{this.id}} <b> {{this.name}} </b>  > {{this.levels}}</li>
+        {{/each}}
+
+    </script>
+    <style >
+        body{
+            background-color: #80ced6;
+            }
+    </style>
+
 </head>
 <body>
-<h1>Workouts</h1>
-<button type="button" onclick="getWorkouts()">Show Players</button>
-<button type="button" onclick="addPlayer()">Add Player</button>
+<form action="/worker" method="post">
+<div class="container">
+    <div class="col-12">
+        <h1 class="display-3"  style="text-align:center" > PLayers list</h1>
+    </div>
+    <form class="needs-validation" action="/hello" method="post" novalidate>
 
-<div>Teachable Machine Audio Model</div>
-<button type="button" onclick="init()">Start</button>
-<div id="label-container"></div>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
-
-<script type="text/javascript">
- / More API functions here:
-    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
-
-    // the link to your model provided by Teachable Machine export panel
-    const URL = "https://teachablemachine.withgoogle.com/models/zpi7sWDPY/";
-
-    let model, webcam, labelContainer, maxPredictions;
-
-    // Load the image model and setup the webcam
-    async function init() {
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
-
-        // load the model and metadata
-        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-        // or files from your local hard drive
-        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-        model = await tmImage.load(modelURL, metadataURL);
-        maxPredictions = model.getTotalClasses();
-
-        // Convenience function to setup a webcam
-        const flip = true; // whether to flip the webcam
-        webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-        await webcam.setup(); // request access to the webcam
-        await webcam.play();
-        window.requestAnimationFrame(loop);
-
-        // append elements to the DOM
-        document.getElementById("webcam-container").appendChild(webcam.canvas);
-        labelContainer = document.getElementById("label-container");
-        for (let i = 0; i < maxPredictions; i++) { // and class labels
-            labelContainer.appendChild(document.createElement("div"));
-        }
-    }
-
-    async function loop() {
-        webcam.update(); // update the webcam frame
-        await predict();
-        window.requestAnimationFrame(loop);
-    }
-
-    // run the webcam image through the image model
-    async function predict() {
-        // predict can take in an image, video or canvas html elementl
-        let noPlayer = "No Player";
-        let standing = "Standing";
-
-        const prediction = await model.predict(webcam.canvas);
-        for (let i = 0; i < maxPredictions; i++) {
-            const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-//                console.log(prediction[i].className)
-//                console.log(prediction[i].probability.toFixed(2));
-                let prob = prediction[i].probability.toFixed(2) * 100;
-                if(prob >= 90){
-                if(prediction[i].className === noPlayer){
-                    document.getElementById("messageLabel").innerHTML = "There is  " + prediction[i].className;
-                }else
-                if(prediction[i].className === standing ){
-                 document.getElementById("messageLabel").innerHTML = "Why are you " +" " + prediction[i].className + "?";
-                }
-                else{
-                document.getElementById("messageLabel").innerHTML = "Keep killing those " + prediction[i].className;
-                }
-                }
+        <div class="form-row">
+            <input name="name" class="userName" value="" placeholder="Enter name">
+            <input name="level" type="number" class="level" value="" placeholder="Enter Score">
 
 
 
+        </div>
+        <div class="form-row">
+            <button type="button" onclick="addPlayer()">Add Player</button>
+            <button type="button" onclick="getWorkouts()">Show Players</button>
+        </div>
+    </form>
+    <hr/>
+    <ul class="workouts"></ul>
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"
+            integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J"
+            crossorigin="anonymous"></script>
 
-            labelContainer.childNodes[i].innerHTML = classPrediction;
-        }
-</script>
-
-
-<h1>Start Exercising</h1>
-
-<div id="container">
-    <video autoplay="true" id="videoElement">
-
-    </video>
-</div>
-<script src="getExercise.js" charset="utf-8"></script>
 </body>
+
 
 </html>

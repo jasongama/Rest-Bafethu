@@ -12,8 +12,9 @@ import static spark.Spark.*;
 public class App {
 
     public static void main(String[] args) {
-        Jdbi jdbi = Jdbi.create("jdbc:postgresql://localhost:5432/workout?user=justin&password=justin123").installPlugin(new SqlObjectPlugin());
-//<<<<<<< HEAD
+
+        Jdbi jdbi = Jdbi.create("jdbc:postgresql://localhost:5432/workout?user=codex&password=codex123").installPlugin(new SqlObjectPlugin());
+
         port(getHerokuAssignedPort());
 //        getHerokuAssignedPort();
          Gson gson = new Gson();
@@ -44,6 +45,7 @@ public class App {
 
             return workouts;
         }, gson::toJson);
+
 
 
     }
