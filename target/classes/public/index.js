@@ -1,11 +1,14 @@
-  const listWorkoutsTemplateText = document.querySelector(".listWorkoutsTemplate");
+  const listWorkoutsTemplateText = document.querySelector(".listWorkoutTemplate");
     const listWorkoutsTemplate = Handlebars.compile(listWorkoutsTemplateText.innerText);
 
     const workout =  document.querySelector(".workouts");
+    const userName =  document.querySelector(".userName");
+    const level =  document.querySelector(".level");
 
     const addPlayer = () => {
-        const name = 'Mike'; // comes from input body / form
-        const levels = 30; // comes from model
+    console.log(userName.value)
+        const name = userName.value; // comes from input body / form
+        const levels = level.value; // comes from model
 
         addWorkouts({ name, levels})
     }
@@ -19,8 +22,8 @@
 
     const getWorkouts = () => axios.get("/api/workouts")
         .then(function(result) {
-        console.log(result)
-                  workout.innerHTML = listWorkoutsTemplate({workouts  : result.data})
+                console.log(result)
+                workout.innerHTML = listWorkoutsTemplate({workouts  : result.data})
           })
           .catch(function(err){
             console.log(err);
