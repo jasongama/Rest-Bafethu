@@ -31,6 +31,7 @@ public class App {
             Workout workout = gson.fromJson(request.body(),Workout.class);
             List<Workout> workouts = jdbi.withHandle(handle -> {
                 WorkoutService workoutService = handle.attach(WorkoutService.class);
+
                 workoutService.addWorkout(workout.getName(),workout.getLevels());
 
                 return workoutService.findWorkout();

@@ -5,6 +5,10 @@
     const URL = "https://teachablemachine.withgoogle.com/models/zpi7sWDPY/";
 
     let model, webcam, labelContainer, maxPredictions;
+    let squatReps = 0;
+            let LungeReps = 0;
+            let pushUpReps = 0;
+
 
     // Load the image model and setup the webcam
     async function init() {
@@ -45,6 +49,7 @@
         let noPlayer = "No Player";
         let standing = "Standing";
 
+
         const prediction = await model.predict(webcam.canvas);
         for (let i = 0; i < maxPredictions; i++) {
             const classPrediction =
@@ -60,13 +65,40 @@
                  document.getElementById("messageLabel").innerHTML = "Why are you " +" " + prediction[i].className + "?";
                 }
                 else{
-                document.getElementById("messageLabel").innerHTML = "Keep killing those " + prediction[i].className;
+                if(prediction[i].className === "Squats"){
+                    squatReps++;
+                    document.getElementById("messageLabel").innerHTML = "Keep killing those " + prediction[i].className;
+                    document.getElementById("scoreBoard").innerHTML = "Score : " + squatReps;
+                }else
+                if(prediction[i].className === "Lunges"){
+                    LungeReps++;
+                    document.getElementById("messageLabel").innerHTML = "Keep killing those " + prediction[i].className;
+                    document.getElementById("scoreBoard").innerHTML = "Score : " + LungeReps;
+                }else if(prediction[i].className === "Push Ups"){
+                    pushUpReps++;
+                    document.getElementById("messageLabel").innerHTML = "Keep killing those " + prediction[i].className;
+                     document.getElementById("scoreBoard").innerHTML = "Score : " + pushUpReps;
+
+
+                }
+//                document.getElementById("messageLabel").innerHTML = "Keep killing those " + prediction[i].className;
                 }
                 }
+
+
 
 
 
 
             labelContainer.childNodes[i].innerHTML = classPrediction;
         }
+
     }
+
+    function getTotalScore(){
+               let score = LungeReps + pushUpReps + squatReps;
+               return score;
+             }
+             function showScore(){
+                document.getElementById("totalScoreBoard").innerHTML = getTotalScore();
+             }

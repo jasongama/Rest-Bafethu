@@ -5,15 +5,39 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Gym Hero</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<style>
+    body{
+    background-color: #80ced6;
+    }
+
+</style>
+
 </head>
 
+
+
 <body>
-<div>Teachable Machine Image Model</div>
-<button type="button" onclick="init()">Start</button>
-<div id="webcam-container"></div>
-<div id="label-container"></div>
-<h1 id="messageLabel"></h1>
+<div><h1>Gym Hero</h1></div>
+<!--<button type="button" onclick="init()">Start</button>-->
+
+<div style="float-left: 50px;" id="webcam-container"></div>
+<div class="button-container" style="padding-bottom:100px">
+    <button type="button" onclick="init()"class="btn btn-success">Start</button>
+
+</div>
+
+<div style="padding-bottom: 100px" id="label-container"></div>
+<h1 style="padding-bottom: 100px" id="messageLabel"></h1>
+
+<h1 id="scoreBoard"></h1>
+<!--<button >Total Score</button>-->
+<button type="button"id="ttlScoreBtn" onclick="showScore()"class="btn btn-success">Total Score</button>
+<h1 id="totalScoreBoard"></h1>
+
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 <script src="model.js" charset="utf-8"></script>
