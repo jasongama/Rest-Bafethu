@@ -6,11 +6,36 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+<style>
+     .btn {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color:blueviolet;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    }
+
+    .btn:hover {
+    background-color: rgb(150, 128, 128);
+    }
+    </style>
+
 </head>
 
 <body>
 <div>Teachable Machine Image Model</div>
 <button type="button" onclick="init()">Start</button>
+
+<a button class="btn" href="index.html">Add Players</button></a>
+
 <div id="webcam-container"></div>
 <div id="label-container"></div>
 <h1 id="messageLabel"></h1>
